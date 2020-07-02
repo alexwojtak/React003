@@ -1,30 +1,47 @@
 /*
 Untranspiled Code 
-class Output extends React.Component{
+class Input extends React.Component{
   constructor(props){
     super(props)
-    this.state = {processedInput: "RESULT"}
+    this.state = {input: ""};
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(event){
   this.setState({
-    input: marked(event.target.value)
+    input: (event.target.value)
   })
 }
   render(){
     return(
       <div>
 
-<textarea id="editor" value={this.state.input} onChange={this.handleChange.bind(this)} />
-
-        <h4>Markdown Preview:</h4>
-        <p id="preview">{this.state.input}</p>
+        <textarea id="editor" value={this.state.input} onChange={this.handleChange.bind(this)} />
+        <Output markdownText={this.state.input}/>
       </div>
     )
   }
 }
 
-ReactDOM.render(<Output />, document.getElementById("reactTarget")) */
+
+class Output extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  
+  render(){
+    const markup = marked(this.props.markdownText);
+    return(
+      <div>
+
+        <h4>Raw Markdown:</h4>
+        <p id="preview">{    document.getElementById('result').innerHTML = markup}</p>
+
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<Input />, document.getElementById("reactTarget")) */
 "use strict";
 
 function _instanceof(left, right) { if (right != null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) { return right[Symbol.hasInstance](left); } else { return left instanceof right; } }
@@ -47,29 +64,29 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var Output =
+var Input =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(Output, _React$Component);
+  _inherits(Input, _React$Component);
 
-  function Output(props) {
+  function Input(props) {
     var _this;
 
-    _classCallCheck(this, Output);
+    _classCallCheck(this, Input);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Output).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Input).call(this, props));
     _this.state = {
-      processedInput: "RESULT"
+      input: ""
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
-  _createClass(Output, [{
+  _createClass(Input, [{
     key: "handleChange",
     value: function handleChange(event) {
       this.setState({
-        input: marked(event.target.value)
+        input: event.target.value
       });
     }
   }, {
@@ -79,13 +96,37 @@ function (_React$Component) {
         id: "editor",
         value: this.state.input,
         onChange: this.handleChange.bind(this)
-      }), React.createElement("h4", null, "Markdown Preview:"), React.createElement("p", {
+      }), React.createElement(Output, {
+        markdownText: this.state.input
+      }));
+    }
+  }]);
+
+  return Input;
+}(React.Component);
+
+var Output =
+/*#__PURE__*/
+function (_React$Component2) {
+  _inherits(Output, _React$Component2);
+
+  function Output(props) {
+    _classCallCheck(this, Output);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Output).call(this, props));
+  }
+
+  _createClass(Output, [{
+    key: "render",
+    value: function render() {
+      var markup = marked(this.props.markdownText);
+      return React.createElement("div", null, React.createElement("h4", null, "Raw Markdown:"), React.createElement("p", {
         id: "preview"
-      }, this.state.input));
+      }, document.getElementById('result').innerHTML = markup));
     }
   }]);
 
   return Output;
 }(React.Component);
 
-ReactDOM.render(React.createElement(Output, null), document.getElementById("reactTarget"));
+ReactDOM.render(React.createElement(Input, null), document.getElementById("reactTarget"));
